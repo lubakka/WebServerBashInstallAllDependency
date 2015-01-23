@@ -8,9 +8,18 @@ if [ "$PKGSTOINSTALL" != "" ]; then
 	read SURE
 	if [[ $SURE = "Y" || $SURE = "y" || $SURE = "" ]]; then
 		if which apt-get &> /dev/null; then
-			apt-get install -y $PKGSTOINSTALL
-			a2enmod rewrite suexec ssl actions include cgi dav_fs dav auth_digest
-			service apache2 restart
+			apt-get update && apt-get upgrade -y
+			sleep 3
+			echo -n "Do you want install only web server? (Y/n): "
+			read WEBS
+			if [[ $WEBS = "Y" || $WEBS = "y" || $WEBS = "" ]]; 
+			then
+				apt-get install -y $PKGSTOINSTALLWEB
+				sleep 3
+                        	a2enmod rewrite suexec ssl actions include cgi dav_fs dav auth_digest
+				sleep 3
+				service	apache2 restart
+			fi
 		elif which zypper &> /dev/null; then
 			zypper in -y $PKGSTOINSTALL
 		elif which urpmi &> /dev/null; then
