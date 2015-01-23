@@ -106,6 +106,8 @@ MKDIR=`which mkdir`
  </VirtualHost>
 EOM
 
+sudo a2ensite $1
+sleep 5
 sudo service apache2 reload
 sleep 5
 sudo service apache2 restart
