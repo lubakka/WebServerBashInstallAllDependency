@@ -94,6 +94,9 @@ while [ "$#" -gt 0 ]; do
 		fi
 		exit
 		;;
+	--ffmpegDebian)
+		installFFMpegDebian
+		;;
 	:)
 		printf "missing argument for -%s\n" "$OPTARG" >&2
 		show_help

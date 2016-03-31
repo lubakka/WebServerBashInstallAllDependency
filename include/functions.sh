@@ -112,3 +112,20 @@ sudo service apache2 reload
 sleep 5
 sudo service apache2 restart
 }
+
+installFFMpegDebian(){
+	apt-get install libav-tools
+	echo "deb http://www.deb-multimedia.org jessie main non-free" >> /etc/apt/sources.list
+	apt-get update
+	apt-get install deb-multimedia-keyring
+	apt-get update
+	apt-get install build-essential libmp3lame-dev libvorbis-dev libtheora-dev libspeex-dev yasm pkg-config libfaac-dev libopenjpeg-dev libx264-dev checkinstall automake autoconf libtool libevent-dev
+	mkdir software 
+	cd software
+	git clone git://source.ffmpeg.org/ffmpeg.git ffmpeg
+	cd ffmpeg
+	./configure --enable-gpl --enable-postproc --enable-swscale --enable-avfilter --enable-libmp3lame --enable-libvorbis --enable-libtheora --enable-libx264 --enable-libspeex --enable-shared --enable-pthreads --enable-libopenjpeg --enable-libfaac --enable-nonfree
+	make
+	sudo make install
+	/sbin/ldconfig
+}
